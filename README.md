@@ -1,70 +1,57 @@
-🚀 Automated CI/CD Pipeline for a 2-Tier Flask Application on AWS
-📌 Project Overview
+# Automated CI/CD Pipeline for a 2-Tier Flask Application on AWS
 
-This project demonstrates an end-to-end CI/CD pipeline for a 2-tier web application built with Flask and MySQL, deployed on AWS EC2 using Docker, Docker Compose, and Jenkins.
+## Project Overview
 
-The goal of this project is to learn and practice DevOps fundamentals by automating the build and deployment process whenever code is pushed to GitHub.
+This project demonstrates an **end-to-end CI/CD pipeline** for a **2-tier web application** built with **Flask and MySQL**, deployed on an **AWS EC2 instance** using **Docker, Docker Compose, and Jenkins**.
 
-🧠 What I Learned from This Project
+The primary goal of this project is to **learn and practice DevOps concepts** by automating the build and deployment process whenever code is pushed to a GitHub repository.
 
-Setting up a Jenkins CI/CD pipeline from scratch
+---
 
-Containerizing applications using Docker
+## What I Learned from This Project
 
-Managing multi-container apps with Docker Compose
+- Building a complete **CI/CD pipeline using Jenkins**
+- Containerizing applications using **Docker**
+- Managing multi-container applications with **Docker Compose**
+- Automating deployments on **AWS EC2**
+- Writing **Pipeline-as-Code** using a Jenkinsfile
+- Understanding real-world DevOps workflows
 
-Automating deployments on AWS EC2
+---
 
-Writing Pipeline-as-Code using a Jenkinsfile
+## 🏗️ Architecture Overview
 
-🏗️ Architecture Overview
-
-High-level flow:
-
-Developer → GitHub → Jenkins (CI/CD) → Docker → AWS EC2
+High-level architecture of the project:
 
 
-Components:
 
-Flask Application – Backend web service
+---
 
-MySQL Database – Persistent data storage
+## 🔄 CI/CD Workflow
 
-Jenkins – CI/CD automation server
+1. Developer pushes code to the `main` branch
+2. Jenkins pipeline is triggered automatically
+3. Jenkins:
+   - Clones the GitHub repository
+   - Builds the Flask Docker image
+   - Deploys the application using Docker Compose
+4. Updated application becomes live on AWS EC2
 
-Docker & Docker Compose – Containerization and orchestration
+---
 
-AWS EC2 – Deployment infrastructure
+## Tech Stack
 
-🔄 CI/CD Workflow
+- **Cloud:** AWS EC2 (Ubuntu 22.04)
+- **CI/CD Tool:** Jenkins
+- **Containerization:** Docker, Docker Compose
+- **Backend Framework:** Flask (Python)
+- **Database:** MySQL
+- **Version Control:** Git & GitHub
 
-Developer pushes code to the main branch
+---
 
-Jenkins automatically:
+## Project Structure
 
-Clones the GitHub repository
-
-Builds Docker images
-
-Deploys containers using Docker Compose
-
-Updated application goes live on the EC2 instance
-
-🧰 Tech Stack
-
-Cloud: AWS EC2 (Ubuntu 22.04)
-
-CI/CD: Jenkins
-
-Containers: Docker, Docker Compose
-
-Backend: Flask (Python)
-
-Database: MySQL
-
-Version Control: GitHub
-
-📂 Repository Structure
 .
 ├── app.py
 ├── requirements.txt
@@ -73,72 +60,112 @@ Version Control: GitHub
 ├── Jenkinsfile
 └── README.md
 
-🐳 Docker & Containerization
-Dockerfile
 
-Uses python:3.9-slim
+---
 
-Installs dependencies
+## 🐳 Docker Configuration
 
-Exposes Flask on port 5000
+### Dockerfile
 
-docker-compose.yml
+- Uses `python:3.9-slim` as the base image
+- Installs required system and Python dependencies
+- Exposes Flask on port `5000`
+- Starts the application using `python app.py`
 
-Defines two services:
+---
 
-flask – Application container
+## Docker Compose Configuration
 
-mysql – Database container
+The `docker-compose.yml` file defines two services:
 
-Uses a shared Docker network
+### Services
 
-Persists database data using volumes
+- **flask**
+  - Builds the application image
+  - Exposes port `5000`
+  - Connects to the MySQL service
 
-⚙️ Jenkins Pipeline (Jenkinsfile)
+- **mysql**
+  - Uses the official MySQL image
+  - Persists data using Docker volumes
+  - Exposes port `3306`
 
-The pipeline consists of three main stages:
+Both services communicate over a shared Docker network.
 
-Clone Code – Pulls the latest code from GitHub
+---
 
-Build Image – Builds the Flask Docker image
+## ⚙️ Jenkins Pipeline
 
-Deploy – Runs containers using Docker Compose
+The Jenkins pipeline is defined using a `Jenkinsfile` (Pipeline-as-Code).
 
-This ensures every code change is automatically deployed.
+### Pipeline Stages
 
-🚀 How to Run This Project
-Prerequisites
+1. **Clone Code**
+   - Pulls the latest code from the GitHub repository
 
-AWS EC2 instance (Ubuntu)
+2. **Build Docker Image**
+   - Builds the Flask application Docker image
 
-Docker & Docker Compose installed
+3. **Deploy with Docker Compose**
+   - Stops existing containers
+   - Deploys updated containers in detached mode
 
-Jenkins installed and running
+This ensures every push to the repository results in an automatic deployment.
 
-Ports opened: 22, 5000, 8080
+---
 
-Deployment
+## How to Run This Project
 
-Once Jenkins is configured:
+### Prerequisites
 
-Push code to the main branch
+- AWS EC2 instance (Ubuntu 22.04)
+- Docker and Docker Compose installed
+- Jenkins installed and running
+- Required ports opened in the EC2 security group:
+  - `22` (SSH)
+  - `5000` (Flask)
+  - `8080` (Jenkins)
 
-Jenkins will automatically deploy the application
+---
 
-Access
+### Deployment Steps
 
-Flask App: http://<EC2_PUBLIC_IP>:5000
+1. Configure Jenkins with Docker permissions
+2. Create a Jenkins pipeline using the repository
+3. Push code to the `main` branch
+4. Jenkins automatically builds and deploys the application
 
-Jenkins Dashboard: http://<EC2_PUBLIC_IP>:8080
+---
 
-📈 Future Improvements
+### Access the Application
 
-Use environment variables / secrets management
+- **Flask App:**  
+  `http://<EC2_PUBLIC_IP>:5000`
 
-Add NGINX reverse proxy
+- **Jenkins Dashboard:**  
+  `http://<EC2_PUBLIC_IP>:8080`
 
-Use AWS RDS instead of containerized MySQL
+---
 
-Implement GitHub Webhooks
+## 📈 Future Enhancements
 
-Add monitoring (Prometheus + Grafana)
+- Add **NGINX reverse proxy**
+- Use **AWS RDS** instead of containerized MySQL
+- Implement **GitHub Webhooks**
+- Add **Secrets Management**
+- Add **Monitoring & Logging** (Prometheus, Grafana)
+
+---
+
+## 📌 Disclaimer
+
+This project was built **for learning and practice purposes**.  
+It is inspired by existing DevOps tutorials but implemented independently to understand real-world CI/CD concepts and workflows.
+
+---
+
+## 🙌 Acknowledgements
+
+Thanks to the DevOps community and open-source contributors for providing learning resources and inspiration.
+
+---
